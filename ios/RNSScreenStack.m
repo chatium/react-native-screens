@@ -64,6 +64,7 @@
     // the header will render in collapsed state which is perhaps a bug
     // in UIKit but ¯\_(ツ)_/¯
     [_controller setViewControllers:@[[UIViewController new]]];
+      _controller.automaticallyAdjustsScrollViewInsets = FALSE;
   }
   return self;
 }
@@ -75,6 +76,8 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    navigationController.automaticallyAdjustsScrollViewInsets = NO;
+    viewController.automaticallyAdjustsScrollViewInsets = NO;
   UIView *view = viewController.view;
   RNSScreenStackHeaderConfig *config = nil;
   for (UIView *subview in view.reactSubviews) {
@@ -88,6 +91,8 @@
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    navigationController.automaticallyAdjustsScrollViewInsets = NO;
+    viewController.automaticallyAdjustsScrollViewInsets = NO;
   if (self.onFinishTransitioning) {
     self.onFinishTransitioning(nil);
   }
